@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product.name }}</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<title>Product Details</title>
+<body>
+
+<h2>{{ product.name }}</h2>
+
+<div class="producer-info">
+    <img src="{{ url_for('static', filename='images/producers/' + product.producer.profile_image) }}"
+         width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+    <strong>{{ product.producer.name }}</strong>
+</div>
+
+<p><b>Price:</b> £{{ product.price_gbp }}</p>
+
+<form action="/add_to_cart/{{ product.id }}" method="POST">
+    <label>Quantity:</label>
+    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}">
+    <button type="submit">Add to Cart</button>
+</form>
+
+</body>
+</html>

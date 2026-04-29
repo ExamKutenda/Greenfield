@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <title>Orders</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+{% include "navbar.html" %}
+
+<h1>Orders for Your Products</h1>
+
+{% if items %}
+    <ul>
+    {% for item in items %}
+        <li>
+            <strong>{{ item.product.name }}</strong><br>
+            Quantity: {{ item.quantity }}<br>
+            Ordered by: {{ item.order.customer_user.name }}<br>
+            Date: {{ item.order.created_at.strftime("%d %b %Y") }}<br>
+            Price each: £{{ "%.2f"|format(item.price_each_gbp) }}<br>
+            Total: £{{ "%.2f"|format(item.price_each_gbp * item.quantity) }}<br>
+
+            <a href="/producer/item/{{ item.id }}/approve">Approve</a>
+        </li>
+        <hr>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No orders yet.</p>
+{% endif %}
+
+</body>
+</html>

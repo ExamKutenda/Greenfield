@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register an Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+
+<h2>Create an Account</h2>
+
+<form action="/register" method="POST">
+
+    <label><b>Your Name</b></label>
+    <input type="text" name="name" placeholder="Your Name" required>
+
+    <label><b>Email</b></label>
+    <input type="text" name="email" placeholder="Enter Email" required>
+
+    <label><b>Password</b></label>
+    <input type="password" name="psw" placeholder="Enter Password" required>
+
+    <label><b>Repeat Password</b></label>
+    <input type="password" name="psw_repeat" placeholder="Repeat Password" required>
+
+    <label><b>Account Type</b></label>
+
+    <label class="role-option">
+        <input type="radio" name="role" value="customer" checked>
+        Customer
+    </label>
+
+    <label class="role-option">
+        <input type="radio" name="role" value="producer">
+        Producer
+    </label>
+
+  
+    <label><b>Admin Approval Key (Producers Only)</b></label>
+    <input type="text" name="admin_key" placeholder="Admin Approval Key">
+
+    <button type="submit">Register</button>
+
+</form>
+
+</body>
+</html>

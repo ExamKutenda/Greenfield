@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+{% include "navbar.html" %}
+<h2>My Account</h2>
+
+<div class="account-container">
+
+    <div class="profile-section">
+        {% if user.profile_image %}
+            <img src="{{ url_for('static', filename='images/producers/' + user.profile_image) }}"
+                 alt="Profile Picture"
+                 width="150" height="150"
+                 style="border-radius: 50%; object-fit: cover;">
+        {% else %}
+            <img src="{{ url_for('static', filename='images/producers/default.jpg') }}"
+                 alt="Default Profile Picture"
+                 width="150" height="150"
+                 style="border-radius: 50%; object-fit: cover;">
+        {% endif %}
+
+        {% if user.role == "producer" %}
+        <form action="/upload_profile_image" method="POST" enctype="multipart/form-data">
+            <input type="file" name="profile_image" accept="image/*">
+            <button type="submit">Upload New Picture</button>
+        </form>
+        {% endif %}
+    </div>
+
+
+    <div class="info-section">
+        <p><strong>Name:</strong> {{ user.name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phone }}</p>
+        <p><strong>Address:</strong> {{ user.adress }}</p>
+
+        {% if user.role == "customer" %}
+            <p><strong>Loyalty Points:</strong> {{ user.loyalty_points }}</p>
+        {% endif %}
+
+      
+
+
+
+       
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+.hero {
+    background: url("/static/images/hero.jpg") center/cover no-repeat;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}

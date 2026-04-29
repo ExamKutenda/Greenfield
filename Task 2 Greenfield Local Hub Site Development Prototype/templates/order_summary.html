@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/producer_dashboard.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Order Summary</title>
+</head>
+
+<body>
+
+<div class="order-summary-container">
+
+    <h2>Order Summary</h2>
+
+
+    <div class="order-meta">
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Date:</strong> {{ order.date }}</p>
+    </div>
+
+    <div class="order-items">
+        {% for item in order_items %}
+        <div class="order-item">
+            <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+            <span>£{{ item.price_each_gbp * item.quantity }}</span>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <div class="order-totals">
+        <div><strong>Subtotal:</strong> £{{ subtotal }}</div>
+        <div><strong>Discount:</strong> -£{{ discount }}</div>
+        <div><strong>Total Paid:</strong> £{{ total }}</div>
+        <div><strong>Loyalty Points Earned:</strong> {{ points_earned }}</div>
+    </div>
+
+    <div class="thank-you">
+        <h3>Thank you for supporting local producers!</h3>
+        <p>Your order has been successfully placed.</p>
+    </div>
+
+    <a href="/products" class="continue-btn">Continue Shopping</a>
+
+</div>
+
+</body>
+</html>

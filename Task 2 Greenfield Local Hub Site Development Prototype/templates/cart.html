@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+{% include "navbar.html" %}
+
+<div class="cart-container">
+
+    <h1 class="cart-title">Your Cart</h1>
+
+    {% if cart_items %}
+
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in cart_items %}
+            <tr class="cart-row">
+                <td>{{ item.product.name }}</td>
+
+                <td>
+                    <img src="{{ url_for('static', filename='images/products/' + item.product.image) }}"
+                         class="cart-img">
+                </td>
+
+                <td>£{{ "%.2f"|format(item.product.price_gbp) }}</td>
+
+                <td>{{ item.quantity }}</td>
+
+                <td>£{{ "%.2f"|format(item.line_total) }}</td>
+
+                <td>
+                    <a href="{{ url_for('remove_from_cart', product_id=item.product.id) }}"
+                       class="remove-btn">
+                        Remove
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="cart-summary">
+        <h2>Total: £{{ "%.2f"|format(cart_total) }}</h2>
+        <a href="/checkout" class="checkout-btn">Checkout</a>
+    </div>
+
+    {% else %}
+
+    <p class="empty">Your cart is empty.</p>
+
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='js/global.js') }}"></script>
+</body>
+</html>

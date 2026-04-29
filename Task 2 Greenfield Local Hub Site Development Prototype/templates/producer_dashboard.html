@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/producer_dashboard.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+{% include "navbar.html" %}
+
+<section class="dashboard-header">
+    <h1>Welcome, {{ producer.name }}</h1>
+    <p>Manage your products and grow your business</p>
+    <a href="{{ url_for('add_product') }}" class="add-btn">+ Add New Product</a>
+</section>
+
+<section class="products-section">
+    <h2>Your Products</h2>
+
+    {% if products %}
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product-card">
+                    <img src="{{ url_for('static', filename='images/products/' + product.image) }}">
+
+                    <h3>{{ product.name }}</h3>
+                    <p>£{{ product.price_gbp }}</p>
+                    <p>Stock: {{ product.stock }}</p>
+
+                    <a href="/product/{{ product.id }}/edit" class="edit-btn">Edit</a>
+
+                    <form action="/product/{{ product.id }}/delete" method="POST">
+                        <button type="submit" class="delete-btn">Delete</button>
+</form>
+
+
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty-message">You haven't added any products yet.</p>
+    {% endif %}
+</section>
+
+</body>
+</html>

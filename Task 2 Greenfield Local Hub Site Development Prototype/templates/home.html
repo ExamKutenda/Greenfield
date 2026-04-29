@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenfield Local Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> 
+    
+</head>
+<body>
+
+
+<nav class="navbar">
+    <a href="/">Home</a>
+    <a href="/products">Products</a>
+    <a href="/cart">Cart</a>
+    <a href="/account">Account</a>
+    <a href="/orders">Order History</a>
+
+    {% if session.get("user_id") %}
+        {% if session.get("role") == "producer" %}
+            <a href="/producer_dashboard">Dashboard</a>
+        {% endif %}
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
+</nav>
+
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Fresh Local Produce Delivered to Your Door</h1>
+        <p>Support local farmers and enjoy high‑quality, sustainable food.</p>
+        <a href="/products" class="btn">Shop Now</a>
+    </div>
+</section>
+
+
+<section class="featured">
+    <h2>Featured Products</h2>
+
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <img src="{{ url_for('static', filename='images/products/' + product.image) }}">
+                <h3>{{ product.name }}</h3>
+                <p>£{{ "%.2f"|format(product.price_gbp) }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<section class="benefits">
+    <h2>Why Shop With Us?</h2>
+
+    <div class="benefit-grid">
+        <div class="benefit">
+            <h3>🌱 Fresh & Local</h3>
+            <p>All products come directly from trusted local producers.</p>
+        </div>
+        <div class="benefit">
+            <h3>🚚 Fast Delivery</h3>
+            <p>Get your order delivered straight to your door.</p>
+        </div>
+        <div class="benefit">
+            <h3>💚 Sustainable</h3>
+            <p>Reduce food miles and support eco‑friendly farming.</p>
+        </div>
+    </div>
+</section>
+<footer>
+    <p>© 2026 Local Market</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/global.js') }}"></script>
+
+</body>
+</html>

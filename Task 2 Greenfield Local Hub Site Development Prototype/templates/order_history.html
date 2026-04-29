@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <h1>Your Orders</h1>
+
+<h1>Your Orders</h1>
+
+{% for order in orders %}
+    <h3>Order #{{ order.id }} — {{ order.created_at.strftime("%d %b %Y") }}</h3>
+<div class="order-item">
+    <img src="{{ url_for('static', filename='images/products/' + item.product.image) }}" class="order-img">
+    <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+    <span>£{{ item.price_each * item.quantity }}</span>
+</div>
+
+    <ul>
+        <div class="order-meta">
+    <p><strong>Order ID:</strong> {{ order.id }}</p>
+    <p><strong>Date:</strong> {{ order.date }}</p>
+    <p><strong>Delivery Method:</strong> {{ order.delivery_method }}</p>
+    </div>
+
+    {% for item in order.items %}
+        <li>
+            <strong>{{ item.product.name }}</strong><br>
+            Quantity: {{ item.quantity }}<br>
+            Status: <strong>{{ item.status }}</strong><br>
+            Producer: {{ item.producer.name }}
+        </li>
+    {% endfor %}
+    </ul>
+
+    <hr>
+{% endfor %}
+
+
+</body>
+</html>

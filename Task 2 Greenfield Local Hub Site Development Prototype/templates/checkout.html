@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+
+<h2>Checkout</h2>
+
+<ul>
+{% for item in cart_items %}
+    <li>
+        {{ item.product.name }} × {{ item.quantity }} — £{{ item.total_price }}
+    </li>
+{% endfor %}
+</ul>
+
+
+
+<h3>Total: £{{ total }}</h3>
+
+<form action="/checkout" method="POST">
+    <button type="submit">Place Order</button>
+</form>
+
+</body>
+</html>

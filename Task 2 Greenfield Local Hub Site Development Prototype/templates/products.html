@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Our Products</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/products.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+
+</form>
+
+<nav class="navbar">
+    <a href="/">Home</a>
+    <a href="/products">Products</a>
+    <a href="/cart">Cart</a>
+    <form class="nav-search" method="GET" action="/products">
+    <input type="text" name="q" placeholder="Search..." value="{{ request.args.get('q', '') }}">
+    <button type="submit">🔍</button>
+</form>
+
+</nav>
+
+<section class="products-section">
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+
+        <img src="{{ url_for('static', filename='images/products/' + product.image) }}" class="product-img">
+
+        <h3>{{ product.name }}</h3>
+
+       <div class="producer-info-vertical">
+        <img src="{{ url_for('static', filename='images/producers/' + product.producer.profile_image) }}"
+         alt="{{ product.producer.name }}"
+         class="producer-pfp">
+
+    <span class="producer-name">{{ product.producer.name }}</span>
+</div>
+
+
+        <p class="price">£{{ "%.2f"|format(product.price_gbp) }}</p>
+
+        {% if product.stock > 0 %}
+            <p class="stock in-stock">{{ product.stock }} in stock</p>
+            <a href="/add_to_cart/{{ product.id }}" class="btn add-btn">Add to Cart</a>
+        {% else %}
+            <p class="stock out">Out of stock</p>
+            <button class="btn disabled" disabled>Unavailable</button>
+        {% endif %}
+
+        <a href="/product/{{ product.id }}" class="details-link">View Details</a>
+
+    </div>
+    {% endfor %}
+</div>
+
+</section>
+
+</body>
+</html>
